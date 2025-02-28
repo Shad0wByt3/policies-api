@@ -253,7 +253,101 @@ BEGIN
         FROM public.policies AS pol
         LEFT JOIN public.employee AS emp ON pol.employee_username = emp.username
         WHERE pol.id = p_policieid;
+		
+		ELSIF p_option = 'Update' THEN
+        -- Bloque para actualizar una póliza
+        -- Verificar que se proporcione el ID de la póliza a actualizar
+        IF p_policieid IS NULL THEN
+            RETURN QUERY SELECT
+                NULL::INTEGER AS policieid,
+                NULL::CHARACTER VARYING AS employee_username,
+                NULL::CHARACTER VARYING AS employee_name,
+                NULL::INTEGER AS sku,
+                NULL::INTEGER AS quantity,
+                NULL::DATE AS fecha,
+                'FAILURE'::TEXT AS status,
+                'Debe proporcionar el ID de la póliza a actualizar.'::TEXT AS message;
+            RETURN;
+        END IF;
 
+        -- Verificar si la póliza existe
+        IF NOT EXISTS (
+            SELECT 1
+            FROM public.policies AS pol
+            WHERE pol.id = p_policieid
+        ) THEN
+            RETURN QUERY SELECT
+                NULL::INTEGER AS policieid,
+                NULL::CHARACTER VARYING AS employee_username,
+                NULL::CHARACTER VARYING AS employee_name,
+                NULL::INTEGER AS sku,
+                NULL::INTEGER AS quantity,
+                NULL::DATE AS fecha,
+                'FAILURE'::TEXT AS status,
+                'La póliza con ID ' || p_policieid || ' no existe.'::TEXT AS message;
+            RETURN;
+        END IF;
+
+        -- Verificar que se proporcione el username del empleado a actualizar
+        IF p_employee_username IS NULL THEN
+            RETURN QUERY SELECT
+                NULL::INTEGER AS policieid,
+                NULL::CHARACTER VARYING AS employee_username,
+                NULL::CHARACTER VARYING AS employee_name,
+                NULL::INTEGER AS sku,
+                NULL::INTEGER AS quantity,
+                NULL::DATE AS fecha,
+                'FAILURE'::TEXT AS status,
+                'Debe proporcionar el username del empleado para actualizar.'::TEXT AS message;
+            RETURN;
+        END IF;
+
+        -- Verificar si el empleado existe
+        IF NOT EXISTS (
+            SELECT 1
+            FROM public.employee AS emp
+            WHERE emp.username = p_employee_username
+        ) THEN
+            RETURN QUERY SELECT
+                NULL::INTEGER AS policieid,
+                NULL::CHARACTER VARYING AS employee_username,
+                NULL::CHARACTER VARYING AS employee_name,
+                NULL::INTEGER AS sku,
+                NULL::INTEGER AS quantity,
+                NULL::DATE AS fecha,
+                'FAILURE'::TEXT AS status,
+                'El empleado ' || p_employee_username || ' no existe.'::TEXT AS message;
+            RETURN;
+        END IF;
+
+        -- Actualizar el employee_username en la póliza
+        UPDATE public.policies AS pol
+        SET employee_username = p_employee_username
+        WHERE pol.id = p_policieid;
+
+        -- Obtener los datos actualizados de la póliza
+        SELECT
+            pol.id AS policieid,
+            pol.employee_username,
+            emp.name AS employee_name,
+            pol.sku,
+            pol.quantity,
+            pol.fecha
+        INTO
+            policieid,
+            employee_username,
+            employee_name,
+            sku,
+            quantity,
+            fecha
+        FROM public.policies AS pol
+        LEFT JOIN public.employee AS emp ON pol.employee_username = emp.username
+        WHERE pol.id = p_policieid;
+
+        status := 'Éxito';
+        message := 'Póliza actualizada exitosamente.';
+
+        RETURN NEXT;
 		
     ELSE
         RETURN QUERY SELECT
