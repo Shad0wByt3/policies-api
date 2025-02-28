@@ -50,20 +50,42 @@ public class InventoryService {
         String message;
         int statusCode;
 
+        String consultTitle = "";
+        switch(option) {
+            case "Create": 
+                consultTitle = "CREACIÓN DE PRODUCTOS";
+                break;
+            case "Update": 
+                consultTitle = "ACTUALIZACIÓN DE PRODUCTO";
+                break;
+            case "Delete": 
+                consultTitle = "ELIMINACIÓN DE PRODUCTO";
+                break;
+            case "Select": 
+                consultTitle = "CONSULTA DE PRODUCTOS";
+                break;
+            case "SelectById": 
+                consultTitle = "CONSULTA DE PRODUCTO POR ID";
+                break;
+            default:
+                consultTitle = "OPCIÓN NO DEFINIDA";
+                break;
+        }
+
         if (inventory == null || inventory.isEmpty()) {
             // Si no se obtuvieron registros, establecer status y mensaje de error
             status = "FAILURE";
             message = "No se encontraron registros.";
             statusCode = 404;
             inventory = Collections.emptyList();
-            log.save(option + ": *****NO SE ENCONTRARON REGISTROS*****");
+            log.save(new Date() + " " + option + ": *****NO SE ENCONTRARON REGISTROS*****");
         } else {
             // Obtener el status y message del primer registro
             Inventory firstStock = inventory.get(0);
             status = firstStock.getStatus();
             message = firstStock.getMessage();
             statusCode = status.equalsIgnoreCase("SUCCESS") ? 200 : 400;
-
+            log.save(option + " Inventory: ------"+ status + ": " + consultTitle +"------");
             // Remover status y message de los demás registros si es necesario
             for (Inventory stock : inventory) {
                 stock.setStatus(null);

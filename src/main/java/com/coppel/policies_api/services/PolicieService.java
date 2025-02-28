@@ -54,7 +54,27 @@ public class PolicieService {
         String status = "FAILURE";
         String message = "Operación fallida.";
         int statusCode = 200;
-
+        String consultTitle = "";
+        switch(option) {
+            case "Create": 
+                consultTitle = "CREACIÓN DE PÓLIZAS";
+                break;
+            case "Update": 
+                consultTitle = "ACTUALIZACIÓN DE PÓLIZA";
+                break;
+            case "Delete": 
+                consultTitle = "ELIMINACIÓN DE PÓLIZA";
+                break;
+            case "SelectAll": 
+                consultTitle = "CONSULTA DE PÓLIZAS";
+                break;
+            case "SelectById": 
+                consultTitle = "CONSULTA DE PÓLIZA POR ID";
+                break;
+            default:
+                consultTitle = "OPCIÓN NO DEFINIDA";
+                break;
+        }   
         try {
             policieList = jdbcTemplate.query(sql, params, new PolicieRowMapper());
 
@@ -69,7 +89,7 @@ public class PolicieService {
                 status = firstPolicie.getStatus();
                 message = firstPolicie.getMessage();
                 statusCode = status.equalsIgnoreCase("Éxito") ? 200 : 400;
-
+                log.save(option + " Policies: ------"+ status + ": " + consultTitle +"------");
                 for (Policie p : policieList) {
                     p.setStatus(null);
                     p.setMessage(null);

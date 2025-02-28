@@ -138,3 +138,23 @@ Fri Feb 28 02:45:44 MST 2025: -----CONSULTA LISTA DE EMPLEADOS-----
 Fri Feb 28 02:45:44 MST 2025: -----CONSULTA LISTA DE EMPLEADOS-----
 Fri Feb 28 02:46:00 MST 2025: -----CONSULTA LISTA DE EMPLEADOS-----
 Fri Feb 28 02:46:00 MST 2025: -----CONSULTA LISTA DE EMPLEADOS-----
+Fri Feb 28 11:14:57 MST 2025: -----CONSULTA LISTA DE EMPLEADOS-----
+Fri Feb 28 11:14:57 MST 2025: -----CONSULTA LISTA DE EMPLEADOS-----
+Select Inventary: ------SUCCESS Operación exitosa.------
+Select Inventary: ------SUCCESS Operación exitosa.------
+SelectAll Policies: ------Éxito Consulta exitosa.------
+SelectAll Policies: ------Éxito Consulta exitosa.------
+Select Inventary: ------SUCCESS Operación exitosa.------
+Select Inventary: ------SUCCESS Operación exitosa.------
+Fri Feb 28 11:25:22 MST 2025: -----CONSULTA LISTA DE EMPLEADOS-----
+Fri Feb 28 11:25:22 MST 2025: -----CONSULTA LISTA DE EMPLEADOS-----
+SelectAll Policies: ------Éxito: CONSULTA DE PÓLIZAS------
+SelectAll Policies: ------Éxito: CONSULTA DE PÓLIZAS------
+Select Inventary: ------SUCCESS Operación exitosa.------
+Select Inventary: ------SUCCESS Operación exitosa.------
+Select Inventory: ------SUCCESS: OPCIÓN NO DEFINIDA------
+Select Inventory: ------SUCCESS: OPCIÓN NO DEFINIDA------
+SelectAll Policies: ------Éxito: CONSULTA DE PÓLIZAS------
+SelectAll Policies: ------Éxito: CONSULTA DE PÓLIZAS------
+Select Inventory: ------SUCCESS: CONSULTA DE PRODUCTOS------
+Select Inventory: ------SUCCESS: CONSULTA DE PRODUCTOS------
